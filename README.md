@@ -22,13 +22,9 @@ An AI-powered security monitoring application purpose-built for OBSBOT Tiny2 USB
 
 ### User Interface
 - **Professional Dark Theme**: Easy on the eyes, perfect for 24/7 monitoring setups
-- **Live Status Display**:
-  - 🟢 **Person Detection** - Shows when humans are detected (🔴 when active)
-  - 🟢 **Recording Status** - Standby / Recording / Cooldown states
-  - 🟢 **System Status** - Real-time system health monitoring
+- **Live Status Display**: Detection, Recording, and System status indicators
 - **Live Video Feed**: Real-time camera stream with detection bounding boxes
 - **Maximizable Window**: Resize to any screen size
-- **OBSBOT Tiny2 Optimized**: Perfectly calibrated for OBSBOT Tiny2 USB camera
 
 ---
 
@@ -38,17 +34,7 @@ An AI-powered security monitoring application purpose-built for OBSBOT Tiny2 USB
 
 ![Main GUI](https://github.com/void0x11/Obsbot-Intelligent-Security-Monitor/raw/main/media/GUI.png)
 
-**Application Status**: 
-- ✅ System actively monitoring 24/7
-- ✅ No person detected → Recording standby
-- ✅ Dark theme UI for comfortable viewing
-- ✅ Three status indicators clearly visible
-
-**What You See**:
-- Camera selector at top (USB Camera 1)
-- Large live video feed (empty room)
-- Three status boxes: Detection, Recording, System
-- All indicators showing 🟢 (Green = Normal/Standby)
+System actively monitoring with no detection. Dark theme UI with three status indicators showing green (standby).
 
 ---
 
@@ -56,63 +42,22 @@ An AI-powered security monitoring application purpose-built for OBSBOT Tiny2 USB
 
 ![Person Detected](https://github.com/void0x11/Obsbot-Intelligent-Security-Monitor/raw/main/media/snapshot.jpg)
 
-**Instant Actions Triggered**:
-- 🔴 **DETECTED** indicator turns red
-- 🔴 **RECORDING** starts immediately
-- 📸 **First snapshot captured** with timestamp
-- 📹 **Video file created** in recordings folder
-
-**What's Happening**:
-- Person visible in video feed with green bounding box
-- Detection count shows (1) person detected
-- Recording status shows active 🔴
-- Timestamp overlay on snapshot: `2025-11-04 14:30:15`
-
-**Timeline Start**:
-```
-T=0s    → Person enters frame
-T=0s    → YOLOv8 detection triggers
-T=0s    → Recording starts
-T=0s    → Snapshot #1 captured & timestamped
-```
+Person detected with green bounding box. Recording indicator turns red, snapshot captured with timestamp overlay.
 
 ---
 
-### 3️⃣ Evidence Backup - Last Snapshot Before Camera Disconnect
+### 3️⃣ Evidence Backup - Camera Disconnect Scenario
 
 ![Last Capture](https://github.com/void0x11/Obsbot-Intelligent-Security-Monitor/raw/main/media/still.png)
 
-**Critical Feature Demonstration**:
-
-This screenshot shows why **15-second snapshots are essential for evidence preservation**.
-
-**Scenario: Person detected, then camera loses USB connection**
+**Why 15-second snapshots matter:**
 
 ```
-TRADITIONAL SYSTEM (Continuous Recording Only):
-═════════════════════════════════════════════════
-T=0s  → Recording starts ▶️
-T=15s → Recording continues ▶️
-T=30s → Recording continues ▶️
-T=45s → CAMERA DISCONNECTED ❌
-        Video file LOST ❌
-RESULT: NO EVIDENCE ❌❌❌
-
-OUR SYSTEM (Recording + 15-Second Snapshots):
-═══════════════════════════════════════════════
-T=0s  → Recording starts + Snapshot #1 📸
-T=15s → Recording continues + Snapshot #2 📸
-T=30s → Recording continues + Snapshot #3 📸
-T=45s → CAMERA DISCONNECTED ❌ + Snapshot #4 📸 CAPTURED!
-        Video may be lost, BUT 4 PHOTOS ARE SAFE ✅
-RESULT: COMPLETE EVIDENCE ✅✅✅
+WITHOUT Snapshots: Camera disconnects → Video LOST ❌
+WITH Snapshots:   Camera disconnects → Photos SAVED ✅
 ```
 
-**Each Snapshot Includes**:
-- ✅ Exact timestamp (YYYY-MM-DD HH:MM:SS)
-- ✅ High-quality person image
-- ✅ Backup proof if video fails
-- ✅ Cannot be disputed
+Even if video fails, you have timestamped photo evidence every 15 seconds.
 
 ---
 
@@ -142,9 +87,8 @@ RESULT: COMPLETE EVIDENCE ✅✅✅
 
 ### System Requirements
 
-- **CPU**: 15-25% during monitoring, 30-40% during detection/recording
+- **CPU**: 15-25% during monitoring, 30-40% during recording
 - **RAM**: ~300MB base, ~500MB with models loaded
-- **Disk I/O**: Only during recording events (minimal impact)
 - **Network**: Not required (works offline)
 
 ---
@@ -153,9 +97,9 @@ RESULT: COMPLETE EVIDENCE ✅✅✅
 
 ### Prerequisites
 - Windows 10/11, macOS, or Linux
-- OBSBOT Tiny2 USB camera (or compatible USB webcam)
+- OBSBOT Tiny2 USB camera
 - 4GB RAM (8GB recommended)
-- 20GB free disk space (for recordings)
+- 20GB free disk space
 
 ### Quick Start
 
@@ -179,26 +123,20 @@ python OBSBOT_Tiny2_Intelligent_Security_Monitor.py
 1. **Connect OBSBOT Tiny2**: USB connection to computer
 2. **Launch Application**: Run the executable or Python script
 3. **Auto Detection**: System automatically detects and selects the camera
-4. **Start Monitoring**: System enters continuous monitoring mode immediately
-5. **Monitor Indicators**:
-   - 🟢 Green = Safe/Normal
-   - 🔴 Red = Active/Alert
-   - 🟡 Orange = Transitional (Cooldown)
-6. **Exit**: Click "Exit" button to cleanly stop all recording and close application
+4. **Start Monitoring**: System enters continuous monitoring immediately
+5. **Monitor Indicators**: 🟢 Green (Normal) | 🔴 Red (Alert) | 🟡 Orange (Cooldown)
+6. **Exit**: Click "Exit" button to stop recording and close
 
 ### Output Files
 
-After monitoring, check:
 - **`recordings/`** - Video files: `security_YYYYMMDD_HHMMSS.mp4`
-- **`snapshots/`** - Images: `snapshot_YYYYMMDD_HHMMSS_mmm.jpg` (with timestamp overlay)
+- **`snapshots/`** - Images: `snapshot_YYYYMMDD_HHMMSS_mmm.jpg` (with timestamp)
 
 ---
 
 ## ⚙️ Configuration & Customization
 
 Edit these settings in `OBSBOT_Tiny2_Intelligent_Security_Monitor.py`:
-
----
 
 ### 🎯 Main Settings
 
@@ -208,8 +146,6 @@ Edit these settings in `OBSBOT_Tiny2_Intelligent_Security_Monitor.py`:
 | **Snapshot Frequency** | Line ~171 | 15s | 5-60s | Time between snapshot captures |
 | **Detection Confidence** | Line ~73 | 0.5 | 0.0-1.0 | Stricter = higher confidence needed |
 | **Video Resolution** | Line ~51-53 | 1920×1080 | 1280×720 to 2560×1440 | Output quality |
-
----
 
 ### 💡 Quick Presets
 
@@ -234,88 +170,12 @@ screenshot_cooldown = 30
 confidence_threshold = 0.7
 ```
 
----
-
-### 📝 Advanced Settings
-
-**Timestamp Format** (Line ~190):
-```python
-# Default: 2025-11-04 14:30:15
-datetime_text = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-```
-
-**Timestamp Position** (Line ~189):
-```python
-# (x, y) coordinates on image
-cv2.putText(annotated_frame, datetime_text, (20, 50), ...)
-# Top-left: (20, 50) | Top-right: (1600, 50) | Bottom: (20, 1050)
-```
-
-**Output Folders**:
-```python
-save_dir = Path('recordings')  # Video files
-save_dir = Path('snapshots')   # Images
-```
-
----
-
-### 🔄 How to Edit
+### How to Edit
 
 1. Open `OBSBOT_Tiny2_Intelligent_Security_Monitor.py`
 2. Find the line number from table above
-3. Change the value
-4. Save file
-5. Run: `python build.py` (if using .exe) or restart app
-
----
-
-## 🔍 Typical Use Cases
-
-**Office Security**
-- Monitor entry/exit points
-- Detect unauthorized personnel
-- Automatic incident documentation
-
-**Research & Academia**
-- Long-duration monitoring experiments
-- Behavioral analysis with computer vision
-- Event-triggered data collection
-
-**Facility Protection**
-- After-hours monitoring
-- Perimeter surveillance
-- Evidence collection for incidents
-
----
-
-## 🛠️ Technical Details
-
-**Core Technologies**
-- **AI Detection**: YOLOv8 nano (lightweight, accurate)
-- **GUI Framework**: PyQt5 (professional, responsive)
-- **Video Processing**: OpenCV with H.264 codec
-- **Threading**: 4 concurrent threads (Camera, Detection, Recording, Screenshots)
-
-**Supported Hardware**
-- **Camera**: OBSBOT Tiny2, standard USB webcams, V4L2-compliant devices
-- **Resolution**: 1920×1080 @ 30 FPS
-- **Output Format**: MP4 video + JPEG snapshots
-
----
-
-## 📋 System Architecture
-
-**Multi-Threaded Design**:
-- **CameraThread**: Continuous 30 FPS capture from USB camera
-- **DetectionThread**: Real-time YOLOv8 inference on frames
-- **RecordingManager**: State machine for video recording lifecycle
-- **ScreenshotManager**: Event-triggered snapshot capture with timestamp
-
-This architecture ensures:
-- Responsive UI (no freezing)
-- Real-time detection (minimal latency)
-- Reliable recording (no frame drops)
-- Concurrent capture of video + snapshots
+3. Change the value and save
+4. Run: `python build.py` (for .exe) or restart app
 
 ---
 
@@ -323,36 +183,26 @@ This architecture ensures:
 
 | Issue | Solution |
 |-------|----------|
-| Camera not detected | Reconnect OBSBOT Tiny2, check USB port, restart application |
-| Low detection accuracy | Increase lighting, adjust confidence threshold (lower value) |
-| High CPU usage | Verify single instance running, reduce detection frequency |
-| Large file sizes | Normal with 1920×1080 @ 30 FPS; plan storage accordingly |
-| Missing snapshots | Check `snapshots/` folder permissions, verify detection occurred |
+| Camera not detected | Reconnect USB, check port, restart application |
+| Low detection accuracy | Increase lighting, lower confidence threshold |
+| High CPU usage | Verify single instance running |
+| Large file sizes | Normal with 1920×1080 @ 30 FPS - plan storage |
+| Missing snapshots | Check folder permissions, verify detection occurred |
 
 ---
 
 ## 📦 Deployment
 
 ### Standalone Executable
-- Download `OBSBOT Tiny2 Intelligent Security Monitor.exe`
 - No installation needed
 - No Python required on target machine
 - Icon in taskbar and window
 - Works on any Windows PC with USB support
 
 ### Source Distribution
-- Requires Python 3.8 - 3.11
-- Install dependencies: `pip install -r requirements.txt`
-- Run: `python main.py`
-
----
-
-## 🔐 Data Privacy
-
-- **Local Processing**: All detection and recording happens locally on your machine
-- **No Cloud**: No data sent to external servers
-- **No Tracking**: Application doesn't collect any usage data
-- **Full Control**: You own all recordings and snapshots
+- Requires Python 3.8+
+- Install: `pip install -r requirements.txt`
+- Run: `python OBSBOT_Tiny2_Intelligent_Security_Monitor.py`
 
 ---
 
@@ -369,7 +219,5 @@ MIT License - Open for academic and commercial use
 ---
 
 **Version**: 1.0.0 | **Status**: Production Ready ✅
-
----
 
 *OBSBOT Tiny2 Intelligent Security Monitor - Smart surveillance when you need it*
