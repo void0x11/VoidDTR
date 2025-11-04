@@ -19,21 +19,25 @@ import time
 
 
 def get_available_cameras():
-    """Detect only USB cameras, skip built-in camera at index 0"""
+    """Detect USB cameras - checks all available indices"""
     available_cameras = []
     
-    # Start from index 1 to skip built-in camera (index 0)
-    # Try camera indices 1-10 (USB cameras typically)
-    for index in range(1, 11):
-        cap = cv2.VideoCapture(index)
-        if cap.isOpened():
-            ret, frame = cap.read()
-            if ret:
-                available_cameras.append(index)
-            cap.release()
+    # Check ALL camera indices (0-20) to find any connected camera
+    # This works regardless of which index the USB camera is assigned
+    for index in range(0, 21):  # Changed: was range(1, 11)
+        try:
+            cap = cv2.VideoCapture(index)
+            if cap.isOpened():
+                ret, frame = cap.read()
+                if ret and frame is not None:
+                    available_cameras.append(index)
+                    print(f"[CAMERA] Found camera at index {index}")
+                cap.release()
+        except Exception as e:
+            print(f"[ERROR] Checking index {index}: {e}")
+            continue
     
     return available_cameras
-
 
 def identify_camera_type(index):
     """Identify camera type"""
