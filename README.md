@@ -264,7 +264,7 @@ MIT License - Open for academic and commercial use
 
 **Version**: 1.0.0 | **Status**: Production Ready ✅
 
-For updates and source code: [GitHub Repository]
+For updates and source code: [[GitHub Repository](https://github.com/void0x11/OBSBOT-Intelligent-Security-Monitor)]
 
 ---
 
