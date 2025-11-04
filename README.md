@@ -13,7 +13,7 @@ An **intelligent, event-driven surveillance system** that automatically captures
 ## Key Features
 
 ### Core Functionality
-- **Real-Time Human Detection**: YOLOv8 neural network processes video frames at 30 FPS for instant detection.
+- **Real-Time Human Detection**: YOLOv8 Convolutional Neural Network (CNN) processes video frames at 30 FPS for instant detection.
 - **Automatic Recording**: Only records when humans are detected, saving storage space.
 - **Smart Cooldown Logic**: 5-second cooldown after detection to prevent fragmented clips.
 - **Timestamped Snapshots**: Automatically captures screenshots every 2 seconds during detection events.
