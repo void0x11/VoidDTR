@@ -183,20 +183,15 @@ RESULT: COMPLETE EVIDENCE ✅✅✅
 
 ## 📊 Real-World Example - Event Timeline
 
-```
-Time      | Detection | Recording | Event                    | Files Created
-──────────┼───────────┼───────────┼──────────────────────────┼────────────────
-14:30:00  | 🔴 START  | 🔴 START  | Person enters frame      | 📹 video_start.mp4
-          |           |           |                          | 📸 snapshot_1.jpg
-14:30:15  | 🔴 ON     | 🔴 REC    | Person detected          | 📸 snapshot_2.jpg
-14:30:30  | 🔴 ON     | 🔴 REC    | Continuous monitoring   | 📸 snapshot_3.jpg
-14:30:45  | 🔴 ON     | 🔴 REC    | Still in frame          | 📸 snapshot_4.jpg
-15:01:00  | 🟢 OFF    | 🟡 COOL   | Person left frame       | 📸 snapshot_5.jpg
-15:01:06  | 🟢 OFF    | 🟢 STOP   | Cooldown expired        | ✅ video_saved.mp4
-          |           |           |                          |
-RESULT    | 1 min     | 1:06      | Complete evidence       | 1 video + 5 photos
-          | event     | duration  | preserved               |
-```
+| Time | Detection | Recording | Event | Files Created |
+|------|-----------|-----------|-------|---------------|
+| 14:30:00 | 🔴 START | 🔴 START | Person enters frame | 📹 video_start.mp4<br>📸 snapshot_1.jpg |
+| 14:30:15 | 🔴 ON | 🔴 REC | Person detected | 📸 snapshot_2.jpg |
+| 14:30:30 | 🔴 ON | 🔴 REC | Continuous monitoring | 📸 snapshot_3.jpg |
+| 14:30:45 | 🔴 ON | 🔴 REC | Still in frame | 📸 snapshot_4.jpg |
+| 15:01:00 | 🟢 OFF | 🟡 COOL | Person left frame | 📸 snapshot_5.jpg |
+| 15:01:06 | 🟢 OFF | 🟢 STOP | Cooldown expired | ✅ video_saved.mp4 |
+| **RESULT** | **1 min event** | **1:06 duration** | **Complete evidence preserved** | **1 video + 5 photos** |
 
 ---
 
